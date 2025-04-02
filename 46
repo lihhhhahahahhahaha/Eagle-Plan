@@ -3,7 +3,7 @@ int pathTop;
 int **ans;
 int ansTop;
 
-/* 将used中元素都设置为0 */
+// 将used中元素都设置为0 
 void Initialize(int *used, int usedLength) 
 {
     for (int i = 0; i < usedLength; i++) {
@@ -11,7 +11,7 @@ void Initialize(int *used, int usedLength)
     }
 }
 
-/* 将path中元素拷贝到ans中 */
+// 将path中元素拷贝到ans中
 void CopyPath() 
 {
     int *tempPath = (int *)malloc(sizeof(*tempPath) * pathTop);
@@ -27,14 +27,12 @@ void CopyPath()
 
 void BackTracking(int *nums, int numsSize, int *used) 
 {
-    /* 若path中元素个数等于nums元素个数，将nums放入ans中 */
     if (pathTop == numsSize) {
         CopyPath();
         return;
     }
 
     for (int i = 0; i < numsSize; i++) {
-        /* 若当前下标中元素已使用过，则跳过当前元素 */
         if (used[i]) {
             continue;
         }
@@ -42,7 +40,6 @@ void BackTracking(int *nums, int numsSize, int *used)
         used[i] = 1;
         path[pathTop++] = nums[i];
         BackTracking(nums, numsSize, used);
-        /* 回溯 */
         pathTop--;
         used[i] = 0;
     }
@@ -50,23 +47,22 @@ void BackTracking(int *nums, int numsSize, int *used)
 
 int **Permute(int *nums, int numsSize, int *returnSize, int **returnColumnSizes)
 {
-    /* 初始化辅助变量 */
     path = (int *)malloc(sizeof(*path) * numsSize);
     ans = (int **)malloc(sizeof(*ans) * 1000);
     int *used = (int *)malloc(sizeof(*used) * numsSize);
     
     if (path == NULL || ans == NULL || used == NULL) {
         *returnSize = 0;
-        return NULL; // 内存分配失败处理
+        return NULL; // 错误处理
     }
 
-    /* 将used数组中元素都置0 */
+    // 将used数组中元素都置0 
     Initialize(used, numsSize);
     ansTop = pathTop = 0;
 
     BackTracking(nums, numsSize, used);
 
-    /* 设置返回的数组长度 */
+    // 设置返回的数组长度
     *returnSize = ansTop;
     *returnColumnSizes = (int *)malloc(sizeof(**returnColumnSizes) * ansTop);
     if (*returnColumnSizes == NULL) {
