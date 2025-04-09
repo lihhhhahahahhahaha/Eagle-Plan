@@ -46,7 +46,7 @@ void MergeLists(struct ListNode *l1, struct ListNode *l2)
     }
 }
 
-void reorderList(struct ListNode *head)
+void ReorderList(struct ListNode *head)
 {
     if (head == NULL || head->next == NULL) {
         return;
