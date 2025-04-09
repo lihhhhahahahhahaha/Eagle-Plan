@@ -5,7 +5,7 @@ typedef struct {
     int size;          /* 实际大小 */
 } BrowserHistory;
 
-BrowserHistory* browserHistoryCreate(char *homepage)
+BrowserHistory* BrowserHistoryCreate(char *homepage)
 {
     BrowserHistory *obj = (BrowserHistory *)malloc(sizeof(BrowserHistory));
     if (obj == NULL) {
@@ -33,7 +33,7 @@ BrowserHistory* browserHistoryCreate(char *homepage)
     return obj;
 }
 
-void browserHistoryVisit(BrowserHistory *obj, char *url)
+void BrowserHistoryVisit(BrowserHistory *obj, char *url)
 {
     /* 清除前进历史 */
     for (int i = obj->current + 1; i < obj->size; i++) {
@@ -62,19 +62,19 @@ void browserHistoryVisit(BrowserHistory *obj, char *url)
     obj->size++;
 }
 
-char * browserHistoryBack(BrowserHistory *obj, int steps)
+char* BrowserHistoryBack(BrowserHistory *obj, int steps)
 {
     obj->current = (obj->current - steps) > 0 ? (obj->current - steps) : 0;
     return obj->history[obj->current];
 }
 
-char * browserHistoryForward(BrowserHistory *obj, int steps)
+char* BrowserHistoryForward(BrowserHistory *obj, int steps)
 {
     obj->current = (obj->current + steps) < (obj->size - 1) ? (obj->current + steps) : (obj->size - 1);
     return obj->history[obj->current];
 }
 
-void browserHistoryFree(BrowserHistory *obj)
+void BrowserHistoryFree(BrowserHistory *obj)
 {
     for (int i = 0; i < obj->size; i++) {
         free(obj->history[i]);
