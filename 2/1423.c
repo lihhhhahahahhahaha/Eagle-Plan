@@ -33,6 +33,5 @@ int MaxScore(int *cardPoints, int cardPointsSize, int k)
         left--;
         right--;
     }
-    
     return maxSum;
 }
