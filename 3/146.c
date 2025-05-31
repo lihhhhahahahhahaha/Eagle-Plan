@@ -19,7 +19,8 @@ typedef struct {
     HashItem **hashTable;
 } LRUCache;
 
-DLinkedNode *createNode(int key, int value) {
+DLinkedNode *createNode(int key, int value)
+{
     DLinkedNode *node = (DLinkedNode *)malloc(sizeof(DLinkedNode));
     if (NULL == node) {
         return NULL;
@@ -31,11 +32,13 @@ DLinkedNode *createNode(int key, int value) {
     return node;
 }
 
-unsigned int hash(int key, unsigned int size) {
+unsigned int hash(int key, unsigned int size)
+{
     return (unsigned int)key % size;
 }
 
-LRUCache *lRUCacheCreate(int capacity) {
+LRUCache *lRUCacheCreate(int capacity)
+{
     LRUCache *cache = (LRUCache *)malloc(sizeof(LRUCache));
     cache->capacity = capacity;
     cache->size = 0;
@@ -52,7 +55,8 @@ LRUCache *lRUCacheCreate(int capacity) {
     return cache;
 }
 
-void moveToHead(LRUCache *cache, DLinkedNode *node) {
+void moveToHead(LRUCache *cache, DLinkedNode *node)
+{
     node->prev->next = node->next;
     node->next->prev = node->prev;
     
@@ -62,7 +66,8 @@ void moveToHead(LRUCache *cache, DLinkedNode *node) {
     cache->head->next = node;
 }
 
-void removeTail(LRUCache *cache) {
+void removeTail(LRUCache *cache)
+{
     DLinkedNode* node = cache->tail->prev;
     node->prev->next = cache->tail;
     cache->tail->prev = node->prev;
@@ -89,7 +94,8 @@ void removeTail(LRUCache *cache) {
     cache->size--;
 }
 
-int lRUCacheGet(LRUCache *cache, int key) {
+int lRUCacheGet(LRUCache *cache, int key)
+{
     unsigned int index = hash(key, cache->capacity * 2);
     HashItem *item = cache->hashTable[index];
     
@@ -103,7 +109,8 @@ int lRUCacheGet(LRUCache *cache, int key) {
     return -1;
 }
 
-void lRUCachePut(LRUCache *cache, int key, int value) {
+void lRUCachePut(LRUCache *cache, int key, int value)
+{
     unsigned int index = hash(key, cache->capacity * 2);
     HashItem *item = cache->hashTable[index];
     
@@ -135,7 +142,8 @@ void lRUCachePut(LRUCache *cache, int key, int value) {
     }
 }
 
-void lRUCacheFree(LRUCache *cache) {
+void lRUCacheFree(LRUCache *cache)
+{
     DLinkedNode *curr = cache->head->next;
     while (curr != cache->tail) {
         DLinkedNode *temp = curr;
