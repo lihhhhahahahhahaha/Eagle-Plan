@@ -3,11 +3,13 @@ typedef struct {
     int profit;
 } Job;
 
-int cmp(const void *a, const void *b) {
+int cmp(const void *a, const void *b)
+{
     return ((Job *)a)->difficulty - ((Job *)b)->difficulty;
 }
 
-int maxProfitAssignment(int* difficulty, int difficultySize, int* profit, int profitSize, int* worker, int workerSize) {
+int maxProfitAssignment(int* difficulty, int difficultySize, int* profit, int profitSize, int* worker, int workerSize)
+{
     Job *jobs = (Job *)malloc(difficultySize * sizeof(Job));
     if (NULL == jobs) {
         return -1;
